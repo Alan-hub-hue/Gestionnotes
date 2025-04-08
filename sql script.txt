@@ -1,0 +1,57 @@
+# script créé le : Tue Apr 08 05:50:48 CAT 2025 -   syntaxe MySQL ;
+
+# use  VOTRE_BASE_DE_DONNEE ;
+
+DROP TABLE IF EXISTS Etudiant ;
+CREATE TABLE Etudiant (IdEtu INT NOT NULL,
+nomEtu CHAR,
+prenomEtu CHAR,
+date_de_naissance DATE,
+PRIMARY KEY (IdEtu) ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Cours ;
+CREATE TABLE Cours (IdCours INT NOT NULL,
+nomCours CHAR,
+volume INT,
+PRIMARY KEY (IdCours) ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Proffesseur ;
+CREATE TABLE Proffesseur (IdProf INT NOT NULL,
+nomProf CHAR,
+prenomProf CHAR,
+specialite CHAR,
+IdCours INT NOT NULL,
+PRIMARY KEY (IdProf) ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Note ;
+CREATE TABLE Note (IdNote INT NOT NULL,
+valeur INT,
+DateNote DATE,
+PRIMARY KEY (IdNote) ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Etre_enseigner ;
+CREATE TABLE Etre_enseigner (IdProf INT NOT NULL,
+IdEtu INT NOT NULL,
+PRIMARY KEY (IdProf,
+ IdEtu) ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Obtenir ;
+CREATE TABLE Obtenir (IdNote INT NOT NULL,
+IdEtu INT NOT NULL,
+PRIMARY KEY (IdNote,
+ IdEtu) ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS Etudier ;
+CREATE TABLE Etudier (IdCours INT NOT NULL,
+IdEtu INT NOT NULL,
+PRIMARY KEY (IdCours,
+ IdEtu) ) ENGINE=InnoDB;
+
+ALTER TABLE Proffesseur ADD CONSTRAINT FK_Proffesseur_IdCours FOREIGN KEY (IdCours) REFERENCES Cours (IdCours);
+
+ALTER TABLE Etre_enseigner ADD CONSTRAINT FK_Etre_enseigner_IdProf FOREIGN KEY (IdProf) REFERENCES Proffesseur (IdProf);
+ALTER TABLE Etre_enseigner ADD CONSTRAINT FK_Etre_enseigner_IdEtu FOREIGN KEY (IdEtu) REFERENCES Etudiant (IdEtu);
+ALTER TABLE Obtenir ADD CONSTRAINT FK_Obtenir_IdNote FOREIGN KEY (IdNote) REFERENCES Note (IdNote);
+ALTER TABLE Obtenir ADD CONSTRAINT FK_Obtenir_IdEtu FOREIGN KEY (IdEtu) REFERENCES Etudiant (IdEtu);
+ALTER TABLE Etudier ADD CONSTRAINT FK_Etudier_IdCours FOREIGN KEY (IdCours) REFERENCES Cours (IdCours);
+ALTER TABLE Etudier ADD CONSTRAINT FK_Etudier_IdEtu FOREIGN KEY (IdEtu) REFERENCES Etudiant (IdEtu);

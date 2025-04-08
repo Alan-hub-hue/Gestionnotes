@@ -1,0 +1,30 @@
+# Modèle créé le : Tue Apr 08 00:31:54 CAT 2025 
+
+Etudiant (<u>IdEtu</u>,
+ nomEtu,
+ prenomEtu,
+ date_de_naissance) 
+
+Cours (<u>IdCours</u>,
+ nomCours,
+ volume) 
+
+Note (<u>IdNote</u>,
+ valeur,
+ DateNote) 
+
+Proffesseur (<u>IdProf</u>,
+ nomProf,
+ prenomProf,
+ specialite,
+ #IdCours) 
+
+etudier (<u>IdEtu</u>,
+ <u>IdCours</u>) 
+
+Obtenir (<u>IdEtu</u>,
+ <u>IdNote</u>) 
+
+Enseigner (<u>IdEtu</u>,
+ <u>IdProf</u>) 
+
